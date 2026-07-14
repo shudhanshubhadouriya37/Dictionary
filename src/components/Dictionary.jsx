@@ -33,7 +33,7 @@ const Dictionary = () => {
       <div className="bg-white/50 w-full max-w-2xl rounded-3xl p-8 shadow-xl">
         <h1 className="text-4xl text-center font-bold text-indigo-600 mb-8">
           {" "}
-          📕Dictionary{" "}
+          📕Dictionary App{" "}
         </h1>
 
         <div className="flex gap-3">
