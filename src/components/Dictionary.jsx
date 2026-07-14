@@ -111,8 +111,8 @@ const Dictionary = () => {
             </p>
 
             <div className="mt-5 space-y-3">
-              <div className="bh-white/70 rounded-xl p-3 flex justify-between">
-                <span className="font-semibold"> Part Of Speach:</span>
+              <div className="bg-white/70 rounded-xl p-3 flex justify-between">
+                <span className="font-semibold"> Part Of Speech:</span>
                 <span>{wordData.meanings[0].partOfSpeach}</span>
               </div>
 
