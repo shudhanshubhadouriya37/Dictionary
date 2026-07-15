@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import axios from "axios";
 
 const Dictionary = () => {
@@ -28,6 +29,9 @@ const Dictionary = () => {
       setLoading(false);
     }
   };
+
+  const audio = wordData?.phonetics?.find((item) => item.audio)?.audio || "";
+
   const synonyms = wordData
     ? wordData.meanings.flatMap((meaning) => meaning.synonyms || [])
     : [];
@@ -102,18 +106,30 @@ const Dictionary = () => {
         )}
 
         {wordData && (
-          <div className="mt-8 bg-indigo-50 rounded-2xl p-6">
+          <div
+            className={`mt-8 rounded-2xl p-6 ${
+              darkMode ? "bg-gray-700 text-white" : "bg-indigo-50 text-black"
+            }`}
+          >
             <h2 className="text-3xl font-bold text-indigo-700">
               {wordData.word}
             </h2>
             <p className="text-gray-700 mt-1">
               {wordData.phonetic || "Phonetic not Found"}{" "}
             </p>
+            {audio && (
+              <button
+                onClick={() => new Audio(audio).play()}
+                className="mt-3 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition"
+              >
+                🔊 Listen Pronunciation
+              </button>
+            )}
 
             <div className="mt-5 space-y-3">
               <div className="bg-white/70 rounded-xl p-3 flex justify-between">
                 <span className="font-semibold"> Part Of Speech:</span>
-                <span>{wordData.meanings[0].partOfSpeach}</span>
+                <span>{wordData.meanings[0].partOfSpeech}</span>
               </div>
 
               <div className="bg-white/70 rounded-xl p-3">
@@ -147,6 +163,24 @@ const Dictionary = () => {
                   </div>
                 ) : (
                   <p className="text-gray-500">No Synonyms Available</p>
+                )}
+              </div>
+              <div className="bg-white/70 rounded-xl p-3 mt-4">
+                <h3 className="font-semibold text-red-600 mb-2">❌ Antonyms</h3>
+
+                {antonyms.length > 0 ? (
+                  <div className="flex flex-wrap gap-2">
+                    {antonyms.slice(0, 8).map((item, index) => (
+                      <span
+                        key={index}
+                        className="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm font-medium"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-gray-500">No Antonyms Available</p>
                 )}
               </div>
             </div>
